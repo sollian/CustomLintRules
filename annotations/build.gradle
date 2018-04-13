@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+configurations {
+    lintLibrary
+}
+
+dependencies {
+    lintLibrary project(path: ":lintjar", configuration: "lintChecks")
+}
+
+task copyLintJar(type: Copy) {
+    from(configurations.lintLibrary) {
+        rename {
+            String fileName ->
+                'lint.jar'
+        }
+    }
+    into 'build/intermediates/lint/'
+}
+
+project.afterEvaluate {
+//    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
+//    compileLintTask.dependsOn(copyLintJar)
+    def compileLintTask = project.tasks.find { it.name == 'preBuild' }
+    compileLintTask.dependsOn(copyLintJar)
+
+//    project.tasks.each { task ->
+//        if (task.name.startsWith("lint")) {
+//            task.dependsOn(compileLintTask)
+//        }
+//    }
+}
