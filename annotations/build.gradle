@@ -43,8 +43,8 @@ task copyLintJar(type: Copy) {
 project.afterEvaluate {
 //    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
 //    compileLintTask.dependsOn(copyLintJar)
-    def compileLintTask = project.tasks.find { it.name == 'preBuild' }
-    compileLintTask.dependsOn(copyLintJar)
+    def preBuildTask = project.tasks.find { it.name == 'preBuild' }
+    preBuildTask.dependsOn(copyLintJar)
 
 //    project.tasks.each { task ->
 //        if (task.name.startsWith("lint")) {
