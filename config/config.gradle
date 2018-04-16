@@ -1,0 +1,18 @@
+//将annotations模块中lint.jar文件拷贝到各个工程的build/intermediates/lint/文件夹下
+task copyLintJar(type: Copy) {
+    File file = new File("annotations/build/intermediates/lint/lint.jar")
+    if (file.exists()) {
+        from '../annotations/build/intermediates/lint/lint.jar'
+        into 'build/intermediates/lint/'
+    } else {
+        String path = file.getAbsolutePath()
+        project.logger.warn "{$path}不存在"
+    }
+}
+
+project.afterEvaluate {
+//    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
+//    compileLintTask.dependsOn(copyLintJar)
+    def preBuildTask = project.tasks.find { it.name == 'preBuild' }
+    preBuildTask.dependsOn(copyLintJar)
+}

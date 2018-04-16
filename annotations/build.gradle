@@ -31,6 +31,7 @@ dependencies {
 }
 
 task copyLintJar(type: Copy) {
+    project.logger.warn "执行"
     from(configurations.lintLibrary) {
         rename {
             String fileName ->
@@ -45,10 +46,4 @@ project.afterEvaluate {
 //    compileLintTask.dependsOn(copyLintJar)
     def preBuildTask = project.tasks.find { it.name == 'preBuild' }
     preBuildTask.dependsOn(copyLintJar)
-
-//    project.tasks.each { task ->
-//        if (task.name.startsWith("lint")) {
-//            task.dependsOn(compileLintTask)
-//        }
-//    }
 }
