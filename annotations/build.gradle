@@ -44,6 +44,6 @@ task copyLintJar(type: Copy) {
 project.afterEvaluate {
 //    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
 //    compileLintTask.dependsOn(copyLintJar)
-    def preBuildTask = project.tasks.find { it.name == 'preBuild' }
+    def preBuildTask = project.tasks.find { it.name == 'preDebugBuild' }
     preBuildTask.dependsOn(copyLintJar)
 }
