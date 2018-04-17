@@ -6,7 +6,7 @@ task copyLintJar(type: Copy) {
         into 'build/intermediates/lint/'
     } else {
         String path = file.getAbsolutePath()
-        project.logger.warn "{$path}不存在"
+        project.logger.warn "${path}不存在"
     }
 }
 

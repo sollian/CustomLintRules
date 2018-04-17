@@ -31,7 +31,6 @@ dependencies {
 }
 
 task copyLintJar(type: Copy) {
-    project.logger.warn "执行"
     from(configurations.lintLibrary) {
         rename {
             String fileName ->
