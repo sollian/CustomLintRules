@@ -16,6 +16,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        int arr[] = new int[3];
+
         Log.e("---", "hah");
         new Util().run();
         new Util();

@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * @author admin on 2018/4/11.
  */
 @Target(value = {ElementType.METHOD, ElementType.TYPE, ElementType.FIELD})
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Inherited
 public @interface ModuleAccessible {
 }
