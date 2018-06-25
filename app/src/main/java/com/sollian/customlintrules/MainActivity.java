@@ -7,6 +7,9 @@ import android.util.Log;
 import com.sollian.base.SubUtil;
 import com.sollian.base.Util;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends Activity {
 
     int id;
@@ -53,6 +56,11 @@ public class MainActivity extends Activity {
     }
 
     public void init() {
-
+        List<Object> objects = new ArrayList<>();
+        for (Object object : objects) {
+            if (object instanceof Integer) {
+                objects.remove(object);
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ public class CustomIssueRegistry extends IssueRegistry {
         return Arrays.asList(
                 LogDetector.ISSUE
                 , NewThreadDetector.ISSUE
+                , ConcurrentModifyDetector.ISSUE
                 , ModuleAccessibleDetector.ISSUE
         );
     }
