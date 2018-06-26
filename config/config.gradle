@@ -2,7 +2,7 @@
 task copyLintJar(type: Copy) {
     File file = new File("annotations/build/intermediates/lint/lint.jar")
     if (file.exists()) {
-        from '../annotations/build/intermediates/lint/lint.jar'
+        from rootProject.rootDir.absolutePath + '/annotations/build/intermediates/lint/lint.jar'
         into 'build/intermediates/lint/'
     } else {
         String path = file.getAbsolutePath()
@@ -13,6 +13,17 @@ task copyLintJar(type: Copy) {
 project.afterEvaluate {
 //    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
 //    compileLintTask.dependsOn(copyLintJar)
-    def preBuildTask = project.tasks.find { it.name == 'preDebugBuild' }
-    preBuildTask.dependsOn(copyLintJar)
+
+//    def preBuildTask = project.tasks.find { it.name == 'preDebugBuild' }
+//    preBuildTask.dependsOn(copyLintJar)
+
+    project.tasks.all {
+        String name = it.name;
+
+        if (name == 'preDebugBuild'
+                //应对多product flavor的情况
+                || (name.startsWith('pre') && name.endsWith('DebugBuild'))) {
+            it.dependsOn(copyLintJar)
+        }
+    }
 }
