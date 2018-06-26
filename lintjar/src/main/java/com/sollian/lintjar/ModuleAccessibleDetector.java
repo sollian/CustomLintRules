@@ -18,7 +18,6 @@ import com.intellij.psi.PsiMember;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiModifierListOwner;
 import com.intellij.psi.PsiNewExpression;
-import com.intellij.psi.PsiPackage;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiType;
 
@@ -139,34 +138,49 @@ public class ModuleAccessibleDetector extends Detector implements Detector.UastS
             String name = psiAnnotation.getQualifiedName();
             if (name != null && name.equals(Constants.ANNOTATION_ROOT + "ModuleAccessible")) {
                 String projectName = context.getProject().getName();
-                PsiPackage psiPackage = context.getEvaluator().getPackage(resolvedElement);
-                if (psiPackage != null) {
-                    String moduleName = psiPackage.getName();
-                    if (!moduleName.equals(projectName)) {
-                        StringBuilder sb = new StringBuilder();
-                        if (resolvedElement instanceof PsiClass) {
-                            sb.append("该类");
-                        } else if (resolvedElement instanceof PsiMethod) {
-                            sb.append("该方法");
-                        } else if (resolvedElement instanceof PsiField) {
-                            sb.append("该字段");
-                        } else {
-                            sb.append("该类/方法/字段");
-                        }
-                        sb.append("属于")
-                                .append(moduleName)
-                                .append("模块私有，")
-                                .append(projectName)
-                                .append("不可访问");
-
-                        context.report(ISSUE, psiElement, context.getLocation(psiElement),
-                                sb.toString());
-                        return true;
+                String moduleName = getModuleName(resolvedElement);
+                //得到的moduleName可能是“Module/base”，所以要使用endsWith判断
+                if (!moduleName.endsWith(projectName)) {
+                    StringBuilder sb = new StringBuilder();
+                    if (resolvedElement instanceof PsiClass) {
+                        sb.append("该类");
+                    } else if (resolvedElement instanceof PsiMethod) {
+                        sb.append("该方法");
+                    } else if (resolvedElement instanceof PsiField) {
+                        sb.append("该字段");
+                    } else {
+                        sb.append("该类/方法/字段");
                     }
+
+                    sb.append("属于")
+                            .append(moduleName)
+                            .append("模块私有，")
+                            .append(projectName)
+                            .append("不可访问");
+
+                    context.report(ISSUE, psiElement, context.getLocation(psiElement),
+                            sb.toString());
+                    return true;
                 }
                 break;
             }
         }
         return false;
+    }
+
+    private static String getModuleName(PsiElement element) {
+        String rootProjectName = element.getProject().getName();
+        String absolutePath = element.getContainingFile().getVirtualFile().getPath();
+
+        String moduleName = absolutePath;
+        int index = absolutePath.indexOf(rootProjectName);
+        if (index > 0) {
+            moduleName = moduleName.substring(index + rootProjectName.length() + 1);
+        }
+        index = moduleName.indexOf("/src/");
+        if (index > 0) {
+            moduleName = moduleName.substring(0, index);
+        }
+        return moduleName;
     }
 }
