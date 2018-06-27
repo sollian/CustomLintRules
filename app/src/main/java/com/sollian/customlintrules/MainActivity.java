@@ -62,5 +62,19 @@ public class MainActivity extends Activity {
                 objects.remove(object);
             }
         }
+
+        for (Object object : objects) {
+            if (object instanceof Integer) {
+                objects.remove(object);
+                break;
+            }
+        }
+
+        for (Object object : objects) {
+            if (object instanceof Integer) {
+                objects.remove(object);
+                return;
+            }
+        }
     }
 }
