@@ -31,7 +31,7 @@ public class LogDetector extends Detector implements Detector.UastScanner {
     @Override
     public void visitMethod(JavaContext context, UCallExpression node, PsiMethod method) {
         if (context.getEvaluator().isMemberInClass(method, "android.util.Log")) {
-            context.report(ISSUE, node, context.getLocation(node), "请勿直接调用android.util.Log，应该使用统一工具类");
+            context.report(ISSUE, node, context.getLocation(node), "避免调用android.util.Log");
         }
     }
 }

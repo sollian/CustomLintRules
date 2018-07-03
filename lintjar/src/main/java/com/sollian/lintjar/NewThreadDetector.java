@@ -31,6 +31,6 @@ public class NewThreadDetector extends Detector implements Detector.UastScanner 
     @Override
     public void visitConstructor(JavaContext context, UCallExpression node, PsiMethod constructor) {
         context.report(ISSUE, node, context.getLocation(node),
-                "请勿直接调用new Thread()，建议使用统一的线程管理工具类");
+                "避免自己创建Thread");
     }
 }

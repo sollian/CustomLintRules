@@ -31,7 +31,7 @@ public class ConcurrentModifyDetector extends Detector implements Detector.UastS
     public static final Issue ISSUE = Issue.create(
             "ConcurrentModificationException",
             "可能引起ConcurrentModificationException",
-            "可能引起ConcurrentModificationException",
+            "请确保代码不会引起ConcurrentModificationException",
             Category.SECURITY,
             9,
             Severity.ERROR,
@@ -91,7 +91,7 @@ public class ConcurrentModifyDetector extends Detector implements Detector.UastS
                 tmpElemnt = parent;
             }
 
-            if (findBlock && findForExpression(parent, listName)) {
+            if (findBlock && findForEachExpression(parent, listName)) {
                 context.report(ISSUE, node, context.getLocation(node), "可能引起ConcurrentModificationException");
                 return;
             }
@@ -114,7 +114,7 @@ public class ConcurrentModifyDetector extends Detector implements Detector.UastS
         return false;
     }
 
-    private static boolean findForExpression(UElement parent, String listName) {
+    private static boolean findForEachExpression(UElement parent, String listName) {
         if (!(parent instanceof UForEachExpression)) {
             return false;
         }
