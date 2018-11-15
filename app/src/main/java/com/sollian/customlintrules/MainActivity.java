@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Day);
         setContentView(R.layout.activity_main);
 
         int arr[] = new int[3];

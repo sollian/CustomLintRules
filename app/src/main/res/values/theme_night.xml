@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Night" parent="AppTheme">
+        <item name="divider_bg">#888</item>
+        <item name="button_bg">@drawable/button_night</item>
+    </style>
+</resources>

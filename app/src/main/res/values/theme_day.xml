@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Day" parent="AppTheme">
+        <item name="divider_bg">#000</item>
+        <item name="button_bg">@drawable/button_day</item>
+    </style>
+</resources>

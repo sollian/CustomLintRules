@@ -2,13 +2,11 @@ apply plugin: 'com.android.library'
 apply from: rootProject.file('config/config.gradle')
 
 android {
-    compileSdkVersion 27
-
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
