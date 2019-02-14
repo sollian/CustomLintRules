@@ -1,8 +1,9 @@
 //将annotations模块中lint.jar文件拷贝到各个工程的build/intermediates/lint/文件夹下
 task copyLintJar(type: Copy) {
-    File file = new File(rootProject.rootDir.absolutePath + '/annotations/build/intermediates/lint/lint.jar')
+    String lintPath = rootProject.rootDir.absolutePath + '/lint.jar'
+    File file = new File(lintPath)
     if (file.exists()) {
-        from rootProject.rootDir.absolutePath + '/annotations/build/intermediates/lint/lint.jar'
+        from lintPath
         into 'build/intermediates/lint/'
     } else {
         String path = file.getAbsolutePath()
@@ -11,18 +12,12 @@ task copyLintJar(type: Copy) {
 }
 
 project.afterEvaluate {
-//    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
-//    compileLintTask.dependsOn(copyLintJar)
-
-//    def preBuildTask = project.tasks.find { it.name == 'preDebugBuild' }
-//    preBuildTask.dependsOn(copyLintJar)
-
     project.tasks.all {
         String name = it.name;
-
         if (name == 'preDebugBuild'
-                //应对多product flavor的情况
-                || (name.startsWith('pre') && name.endsWith('DebugBuild'))) {
+                || name == 'preReleaseBuild'
+                //应对不同的product flavor
+                || (name.startsWith('pre') && ((name.endsWith('DebugBuild') || name.endsWith('ReleaseBuild'))))) {
             it.dependsOn(copyLintJar)
         }
     }

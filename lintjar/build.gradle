@@ -1,3 +1,6 @@
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption
+
 apply plugin: 'java-library'
 
 dependencies {
@@ -20,4 +23,23 @@ configurations {
 
 dependencies {
     lintChecks files(jar)
+}
+
+//将lint.jar文件拷贝到某个目录下
+project.afterEvaluate {
+    tasks.all {
+        if (it.name.startsWith("jar")) {
+            it.doLast {
+                File oldFile = it.outputs.files.singleFile;
+                def newName = it.project.projectDir.getParent() + "/lint.jar";
+
+                if (oldFile.exists()) {
+                    java.nio.file.Path source = oldFile.toPath()
+                    java.nio.file.Path dest = new File(newName).toPath()
+                    Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING)
+                } else {
+                }
+            }
+        }
+    }
 }

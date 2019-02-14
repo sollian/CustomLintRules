@@ -23,6 +23,8 @@ public class MainActivity extends Activity {
         int arr[] = new int[3];
 
         Log.e("---", "hah");
+        Log.d("---", "hah");
+        Log.w("---", "hah");
         new Util().run();
         new Util();
         Util util = new Util();
@@ -54,6 +56,13 @@ public class MainActivity extends Activity {
         }).run();
 
         init();
+
+        try {
+        } catch (Exception e) {
+            e.printStackTrace();
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
     }
 
     public void init() {
