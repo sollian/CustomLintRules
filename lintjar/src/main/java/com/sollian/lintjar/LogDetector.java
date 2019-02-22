@@ -21,7 +21,7 @@ public class LogDetector extends Detector implements Detector.UastScanner {
             "LogUsage",
             "避免调用android.util.Log",
             "请勿直接调用android.util.Log，应该使用统一工具类",
-            Category.SECURITY, 5, Severity.ERROR,
+            Category.LINT, 5, Severity.ERROR,
             new Implementation(LogDetector.class, Scope.JAVA_FILE_SCOPE));
 
     @Override

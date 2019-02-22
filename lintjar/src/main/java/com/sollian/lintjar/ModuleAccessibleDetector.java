@@ -39,7 +39,7 @@ public class ModuleAccessibleDetector extends Detector implements Detector.UastS
             "ModuleAccessible",
             "该类/方法/字段模块私有，外部禁止使用",
             "避免使用模块私有的类/方法/字段",
-            Category.A11Y,
+            Category.LINT,
             5,
             Severity.ERROR,
             new Implementation(ModuleAccessibleDetector.class, Scope.JAVA_FILE_SCOPE)

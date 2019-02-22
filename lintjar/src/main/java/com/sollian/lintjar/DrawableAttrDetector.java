@@ -26,7 +26,7 @@ public class DrawableAttrDetector extends ResourceXmlDetector {//extends Detecto
             "XMLUsage",
             "版本不兼容或不支持",
             "api21开始才支持自定义Drawable使用attr属性",
-            Category.USABILITY,
+            Category.LINT,
             5,
             Severity.ERROR,
             new Implementation(DrawableAttrDetector.class,

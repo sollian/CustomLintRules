@@ -33,7 +33,7 @@ public class ConcurrentModifyDetector extends Detector implements Detector.UastS
             "ConcurrentModificationException",
             "可能引起ConcurrentModificationException",
             "请确保代码不会引起ConcurrentModificationException",
-            Category.SECURITY,
+            Category.LINT,
             9,
             Severity.ERROR,
             new Implementation(ConcurrentModifyDetector.class, Scope.JAVA_FILE_SCOPE)
