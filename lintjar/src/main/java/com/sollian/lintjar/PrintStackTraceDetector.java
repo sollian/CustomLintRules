@@ -71,7 +71,7 @@ public class PrintStackTraceDetector extends com.android.tools.lint.detector.api
         */
         LintFix fix = fix().replace()
                 .all()
-                .with("LogUtils.printStaceTrace(" + node.getReceiver().asRenderString() + ')')
+                .with("LogUtils.printStackTrace(" + node.getReceiver().asRenderString() + ')')
                 .autoFix()
                 .build();
 
