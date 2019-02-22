@@ -8,6 +8,10 @@ gradle版本最低为4.2，4.1版本prepareLintJar任务会清除build/intermedi
 https://www.colabug.com/2109876.html
 
 
-##报告
+## 报告
 
 执行`gradle lint`命令可以生成lint报告，查看各种issue。
+
+## 工程的简单讲解
+
+[android自定义lint规则](https://www.jianshu.com/p/ac53a1973356)
