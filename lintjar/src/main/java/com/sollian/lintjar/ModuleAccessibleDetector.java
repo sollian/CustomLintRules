@@ -62,7 +62,7 @@ public class ModuleAccessibleDetector extends Detector implements Detector.UastS
         return new UElementHandler() {
             @Override
             public void visitElement(@NotNull UElement node) {
-                PsiElement psiElement = node.getPsi();
+                PsiElement psiElement = node.getJavaPsi();
                 if (!(psiElement instanceof PsiNewExpression)) {
                     return;
                 }
