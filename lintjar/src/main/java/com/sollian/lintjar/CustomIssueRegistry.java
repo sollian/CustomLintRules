@@ -25,6 +25,7 @@ public class CustomIssueRegistry extends IssueRegistry {
                 , ModuleAccessibleDetector.ISSUE
                 , DrawableAttrDetector.ISSUE
                 , PrintStackTraceDetector.ISSUE
+//                , AttrPrefixDetector.ISSUE
         );
     }
 }

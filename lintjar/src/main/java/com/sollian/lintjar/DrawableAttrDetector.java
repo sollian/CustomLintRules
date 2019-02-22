@@ -11,6 +11,7 @@ import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.android.tools.lint.detector.api.XmlContext;
 
+import org.jetbrains.annotations.NotNull;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -60,7 +61,7 @@ public class DrawableAttrDetector extends ResourceXmlDetector {//extends Detecto
 //    }
 
     @Override
-    public void visitElement(XmlContext context, Element element) {
+    public void visitElement(@NotNull XmlContext context, @NotNull Element element) {
         NamedNodeMap map = element.getAttributes();
         int len = map.getLength();
         for (int i = 0; i < len; i++) {
@@ -75,7 +76,7 @@ public class DrawableAttrDetector extends ResourceXmlDetector {//extends Detecto
         }
     }
 
-    private void showTip(XmlContext context, Node attributeNode) {
+    private static void showTip(XmlContext context, Node attributeNode) {
         context.report(ISSUE,
                 attributeNode,
                 context.getLocation(attributeNode),

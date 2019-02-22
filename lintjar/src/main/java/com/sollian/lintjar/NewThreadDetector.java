@@ -9,6 +9,7 @@ import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.intellij.psi.PsiMethod;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UCallExpression;
 
 import java.util.Collections;
@@ -29,7 +30,9 @@ public class NewThreadDetector extends Detector implements Detector.UastScanner 
     }
 
     @Override
-    public void visitConstructor(JavaContext context, UCallExpression node, PsiMethod constructor) {
+    public void visitConstructor(@NotNull JavaContext context,
+                                 @NotNull UCallExpression node,
+                                 @NotNull PsiMethod constructor) {
         context.report(ISSUE, node, context.getLocation(node),
                 "避免自己创建Thread");
     }

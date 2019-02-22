@@ -21,6 +21,7 @@ import com.intellij.psi.PsiNewExpression;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiType;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.uast.UCallExpression;
 import org.jetbrains.uast.UElement;
@@ -57,10 +58,10 @@ public class ModuleAccessibleDetector extends Detector implements Detector.UastS
 
     @Nullable
     @Override
-    public UElementHandler createUastHandler(final JavaContext context) {
+    public UElementHandler createUastHandler(@NotNull final JavaContext context) {
         return new UElementHandler() {
             @Override
-            public void visitElement(UElement node) {
+            public void visitElement(@NotNull UElement node) {
                 PsiElement psiElement = node.getPsi();
                 if (!(psiElement instanceof PsiNewExpression)) {
                     return;
@@ -81,7 +82,7 @@ public class ModuleAccessibleDetector extends Detector implements Detector.UastS
             }
 
             @Override
-            public void visitTypeReferenceExpression(UTypeReferenceExpression node) {
+            public void visitTypeReferenceExpression(@NotNull UTypeReferenceExpression node) {
                 PsiType psiType = node.getType();
                 if (!(psiType instanceof PsiClassType)) {
                     return;
@@ -92,7 +93,7 @@ public class ModuleAccessibleDetector extends Detector implements Detector.UastS
             }
 
             @Override
-            public void visitCallExpression(UCallExpression node) {
+            public void visitCallExpression(@NotNull UCallExpression node) {
                 PsiMethod psiMethod = node.resolve();
                 if (psiMethod == null) {
                     return;
@@ -105,7 +106,7 @@ public class ModuleAccessibleDetector extends Detector implements Detector.UastS
             }
 
             @Override
-            public void visitQualifiedReferenceExpression(UQualifiedReferenceExpression node) {
+            public void visitQualifiedReferenceExpression(@NotNull UQualifiedReferenceExpression node) {
                 PsiElement psiElement = node.getPsi();
                 if (!(psiElement instanceof PsiReference)) {
                     return;

@@ -9,6 +9,7 @@ import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.intellij.psi.PsiMethod;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UBlockExpression;
 import org.jetbrains.uast.UBreakExpression;
 import org.jetbrains.uast.UCallExpression;
@@ -56,8 +57,10 @@ public class ConcurrentModifyDetector extends Detector implements Detector.UastS
      * @param method
      */
     @Override
-    public void visitMethod(JavaContext context, UCallExpression node, PsiMethod method) {
-        if (node == null || !context.getEvaluator().isMemberInClass(method, "java.util.List")) {
+    public void visitMethodCall(@NotNull JavaContext context,
+                                @NotNull UCallExpression node,
+                                @NotNull PsiMethod method) {
+        if (!context.getEvaluator().isMemberInClass(method, "java.util.List")) {
             return;
         }
 

@@ -9,6 +9,7 @@ import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.intellij.psi.PsiMethod;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UCallExpression;
 
 import java.util.Arrays;
@@ -29,7 +30,9 @@ public class LogDetector extends Detector implements Detector.UastScanner {
     }
 
     @Override
-    public void visitMethod(JavaContext context, UCallExpression node, PsiMethod method) {
+    public void visitMethodCall(@NotNull JavaContext context,
+                                @NotNull UCallExpression node,
+                                @NotNull PsiMethod method) {
         if (context.getEvaluator().isMemberInClass(method, "android.util.Log")) {
             context.report(ISSUE, node, context.getLocation(node), "避免调用android.util.Log");
         }
