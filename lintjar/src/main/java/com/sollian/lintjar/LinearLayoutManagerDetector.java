@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UCallExpression;
 import org.jetbrains.uast.UElement;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -34,8 +34,9 @@ public class LinearLayoutManagerDetector extends Detector implements Detector.Ua
 
     @Override
     public List<String> getApplicableConstructorTypes() {
-        return Collections.singletonList(
-                "androidx.recyclerview.widget.LinearLayoutManager"
+        return Arrays.asList(
+                "androidx.recyclerview.widget.LinearLayoutManager",
+                "android.support.v7.widget.LinearLayoutManager"
         );
     }
 
