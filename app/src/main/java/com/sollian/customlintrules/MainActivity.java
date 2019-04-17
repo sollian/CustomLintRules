@@ -10,6 +10,8 @@ import com.sollian.base.Util;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 public class MainActivity extends Activity {
 
     int id;
@@ -55,6 +57,8 @@ public class MainActivity extends Activity {
             }
         }).run();
 
+        new Thread("111");
+
         init();
 
         try {
@@ -63,6 +67,9 @@ public class MainActivity extends Activity {
         } catch (Throwable t) {
             t.printStackTrace();
         }
+
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+//        manager.setRecycleChildrenOnDetach(true);
     }
 
     public void init() {

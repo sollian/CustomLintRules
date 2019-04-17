@@ -71,8 +71,8 @@ android {
 dependencies {
 //    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation project(':base')
-    implementation 'androidx.annotation:annotation:1.1.0-alpha01'
-//    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
 }
 
 // 配置assemble任务依赖lint，编译时就会执行Lint检查

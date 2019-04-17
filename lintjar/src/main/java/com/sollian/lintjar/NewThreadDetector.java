@@ -16,12 +16,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class NewThreadDetector extends Detector implements Detector.UastScanner {
-
     public static final Issue ISSUE = Issue.create(
             "NewThread",
             "避免自己创建Thread",
             "请勿直接调用new Thread()，建议使用统一的线程管理工具类",
-            Category.LINT, 5, Severity.ERROR,
+            Category.LINT,
+            5,
+            Severity.ERROR,
             new Implementation(NewThreadDetector.class, Scope.JAVA_FILE_SCOPE));
 
     @Override
