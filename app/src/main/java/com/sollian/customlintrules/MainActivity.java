@@ -1,16 +1,18 @@
 package com.sollian.customlintrules;
 
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.PopupWindow;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sollian.base.SubUtil;
 import com.sollian.base.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class MainActivity extends Activity {
 
@@ -73,6 +75,11 @@ public class MainActivity extends Activity {
     }
 
     public void init() {
+        PopupWindow window = new PopupWindow(this);
+//        window.setBackgroundDrawable(null);
+//        window.setBackgroundDrawable(new ColorDrawable(0));
+
+
         List<Object> objects = new ArrayList<>();
         for (Object object : objects) {
             if (object instanceof Integer) {

@@ -5,7 +5,6 @@ import com.android.tools.lint.detector.api.Detector;
 import com.android.tools.lint.detector.api.Implementation;
 import com.android.tools.lint.detector.api.Issue;
 import com.android.tools.lint.detector.api.JavaContext;
-import com.android.tools.lint.detector.api.Location;
 import com.android.tools.lint.detector.api.Scope;
 import com.android.tools.lint.detector.api.Severity;
 import com.intellij.psi.PsiComment;
@@ -16,28 +15,25 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.uast.UCallExpression;
 import org.jetbrains.uast.UElement;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
  * @author lishouxian on 2019/4/17.
  */
-public class LinearLayoutManagerDetector extends Detector implements Detector.UastScanner {
+public class PopupWindowDetector extends Detector implements Detector.UastScanner {
     public static final Issue ISSUE = Issue.create(
-            "LinearLayoutManagerDetector",
-            "如需覆写Adapter的onViewDetachedFromWindow方法，请调用LinearLayoutManager#setRecycleChildrenOnDetach方法",
-            "默认情况下，Adapter的onViewDetachedFromWindow在页面退出时，不会被调用。如果有解注册的行为，可能会引起内存泄漏",
+            "PopupWindowDetector",
+            "如需在区域外点击消失，需要设置背景不为null，否则6.0以下不起作用",
+            "",
             Category.LINT,
             5,
             Severity.ERROR,
-            new Implementation(LinearLayoutManagerDetector.class, Scope.JAVA_FILE_SCOPE));
+            new Implementation(PopupWindowDetector.class, Scope.JAVA_FILE_SCOPE));
 
     @Override
     public List<String> getApplicableConstructorTypes() {
-        return Arrays.asList(
-                "androidx.recyclerview.widget.LinearLayoutManager",
-                "android.support.v7.widget.LinearLayoutManager"
-        );
+        return Collections.singletonList("android.widget.PopupWindow");
     }
 
     @Override
@@ -53,6 +49,8 @@ public class LinearLayoutManagerDetector extends Detector implements Detector.Ua
         if (psiElement == null) {
             return;
         }
+
+        UElement reportElement = node;
 
         boolean findKeyMethod = false;
         PsiElement nextSibling = psiElement.getParent();
@@ -81,17 +79,25 @@ public class LinearLayoutManagerDetector extends Detector implements Detector.Ua
                 continue;
             }
 
-            if (text.contains("setRecycleChildrenOnDetach")) {
+            if (text.contains("setBackgroundDrawable(null)")) {
+                reportElement = context.getUastContext().convertElement(nextSibling, null, null);
+                break;
+            }
+            if (text.contains("setBackgroundDrawable")) {
                 findKeyMethod = true;
                 break;
             }
         }
 
+        if (reportElement == null) {
+            reportElement = node;
+        }
+
         if (!findKeyMethod) {
             context.report(ISSUE,
-                    node,
-                    context.getLocation(node),
-                    "如需覆写Adapter的onViewDetachedFromWindow方法，请调用LinearLayoutManager#setRecycleChildrenOnDetach方法");
+                    reportElement,
+                    context.getLocation(reportElement),
+                    "如需在区域外点击消失，需要设置背景不为null，否则6.0以下不起作用");
         }
     }
 }
