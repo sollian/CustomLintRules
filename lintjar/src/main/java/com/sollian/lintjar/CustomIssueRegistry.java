@@ -27,6 +27,7 @@ public class CustomIssueRegistry extends IssueRegistry {
                 , PrintStackTraceDetector.ISSUE
                 , LinearLayoutManagerDetector.ISSUE
                 , PopupWindowDetector.ISSUE
+                , ReflectDetector.ISSUE
 //                , AttrPrefixDetector.ISSUE
         );
     }

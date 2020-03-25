@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.sollian.base.SubUtil;
 import com.sollian.base.Util;
+import com.sollian.customlintrules.utils.ReflectUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends Activity {
-
     int id;
 
     @Override
@@ -72,6 +72,8 @@ public class MainActivity extends Activity {
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
 //        manager.setRecycleChildrenOnDetach(true);
+
+        ReflectUtil.classForName("");
     }
 
     public void init() {
