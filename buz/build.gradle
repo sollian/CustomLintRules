@@ -26,6 +26,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    compileOptions {
+        encoding "UTF-8"
+    }
 }
 
 dependencies {
